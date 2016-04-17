@@ -1,0 +1,10 @@
+- Code sync or model sync: how to know we have to compare Class1 with ReversedClass, i.e. how to know one was the other before?
+  For example we compare their packages. The comparator will say Class1 exists only left, ReversedClass only exists right, but
+  won't say Class1 IS ReversedClass with different names only.
+==> This is a technological blocking point. We have to assume that the comparator handles this. E.g. it looks into the histories,
+i.e. it is heuristic. How do we look into history? E.g. when comparing left and mid, look into history of right?
+==> Another way to present it is to say that sync is not handled by us, and demands human interaction because it is very hard. But
+then it doesn't suit the "Automatic" in ASE.
+
+We can also present technological limitations as future work and say that we also evaluate the viability of model-code sync
+with current Eclipse-based technologies.

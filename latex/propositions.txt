@@ -1,0 +1,19 @@
+Problem: Gap between MDE developers and programmers
+Objective: Bridge the gap between MDE developers and programmers by
+           automating sychronization between resources through round-trip engineering
+
+Proposition & contribution:
+  1. A framework to implement a development environment with automatic round-trip engineering
+     between object-oriented models and object-oriented code
+  2. Processes to synchronize model and code that co-evoluted during development
+  2. A implementation based on our framework, for round-trip engineering of OMG-standard UML models
+     and C++11 code
+
+Actors: model-driven developer, developer, code-driven developer
+
+Use-cases: Generate code, generate code (incrementally), generate code (overwrite), reverse (overwrite), reverse (incrementally)
+
+Future work:
+  - Java version
+  - Patrick's ReqIF problem (to show that our framework is applicable
+    to other problems than UML and C++ sync.)

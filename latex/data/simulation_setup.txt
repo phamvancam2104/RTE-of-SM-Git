@@ -1,0 +1,69 @@
+numPkgs: 10
+
+numClassPerPkg : 100
+
+numAttrPerClass: 10
+probAttr: 0.5
+probPtr: 0.3
+probPrimitive: 0.5
+
+numOpPerClass: 10
+probOp: 0.5
+numParamPerOp: 2
+probParam: 0.7
+probReturnParam: 0.5
+probPtr: 0.3
+opaqueBehavior for a created operation:
+	"Class" + "Class" + random(1, numPkgs) + random(1, numClassPerPkg) + ";"
+	Create dependency between the opaqueBehavior.owner (i.e. its Class) and "Class" + random(1, numPkgs) + random(1, numClassPerPkg)
+
+numGeneralizations: 300
+
+Some other things to consider later:
+  - Enumeration
+  - Default value for a primitive attribute or parameter
+  - ?
+
+Algorithm
+=========
+
+Apply C_Cpp profile
+Import AnsiCLibrary
+
+For p : 1 .. numPkgs by steps of 1
+	Create "Package" + p
+	For c : 1 .. numClasses by steps of 1
+		Create "Class" + p + c
+		For a : 1 .. numAttrPerClass
+			If random() > probAttr
+				Create "attribute" + a  for the class
+				If random() > probPtr
+					Apply <<Ptr>> to attribute
+				end If
+			End If
+		End for
+		// TODO: create operations, opaqueBehaviors, parameters
+	End For
+End For
+
+// TODO create generalizations: Choose randomly Class1, choose randomly Class2, make Class1 inherit Class2, add Class1 to list of classes to not choose next time
+// TODO loop through all properties and parameters, if random() > probPrimitive then type with a random primitive, else type with a random class in the model
+// TODO loop through all properties and create associations from properties following aggregation rules (like in the reverse)
+
+
+==========
+Discussion
+==========
+
+So the conclusion of this interesting discussion, that we will put in the paper, is:
+1. We ensure semantic are identical (syntax too hard, haven't seen a tool that does that) (define semantic identical)
+2. Eclipse techs are insufficient for an efficient impl of the whole process
+3. The process can be re-used in different contexts, independently of the impl
+
+Present this in the experiments and/or impl sections. Present some impl issues (like Eclipse techs are limited) as results
+of the UML-RT case-study (a real usage of our impl of the process)
+
+[‎04/‎04/‎2016 17:09] PHAM Van Cam: 
+we also need to explain that the reversed and original models are not syntactically identical since the mapping between UML and C++ are not bijective (not always having 1-to-1 mappings)
+and furthermore, some C++ features are not present in UMl
+

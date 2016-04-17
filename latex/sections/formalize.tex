@@ -1,0 +1,48 @@
+\section{\uppercase{Incremental model transformation chain formalization}}
+\begin{definition}[Batch code generation]
+Batch code generation is a process of generating executable code \ts{c} from a model specification
+\end{definition}
+
+Incremental transformation (IT) is principally based on detecting changes made to one artifact and propagating to the other artifact. There are several requirements that IMTs should satisfy. These are performance, correctness and preservation. In order to be explicit about these requirements, we express different terms as follows: $Src$, $Tgt$, $Src_{mod}$, and $Tgt_{mod}$ as source model, target model, and their updated versions, respectively, $T_{batch}$ as batch transformation, $T_{inc}$ as incremental, $T_{fwd}$ and $T_{bwd}$ as forward and backward transformations, $t_{batch}$ as time for batch, $t_{inc}$ as time for incremental, $t_{d}$ as time for detecting changes, $t_{a}$ as time for analyzing changes, $t_{p}$ as time for propagation. We define transformations as follows: $T_{batch}: Src \rightarrow Tgt$, $T_{inc}: Src_{mod} \rightarrow Tgt_{mod}$, $T_{fwd}: Src \rightarrow Tgt$. 
+
+We say that an incremental transformation of a change percentage $Pctg_{mod} = \frac{\# Src_{mod}-\# Src}{\# Src_{mod}} = \frac{\# \Delta Src}{\# Src_{mod}}$ outperforms a batch transformation iff:
+\begin{align*}
+t_{inc} = t_{d} + t_{a} + t_{p} < t_{batch}
+\end{align*} 
+
+When $Pctg_{mod}$, which is measured by the quotient of the number of modified elements divided by the total number of elements of the modified model or $Pctg_{mod} = \frac{\# \Delta Src}{\# Src_{mod}}$, increases, $t_{d}$, $t_{a}$ and $t_{p}$ tend up. Therefore, $t_{inc}$ reaches close to $t_{batch}$. When $t_{inc} > t_{batch}$ at a certain $Pctg_{mod0}$ of modification (say the source model is modified at a certain level), we say that the IMT is not performant. Hence, a batch transformation should be executed in case of ignoring the preservation of changes on the target model. By calculating this percentage, the transformation engine can figure out an appropriate strategy to select a transformation type (batch or incremental) to make efficient transformations. However, the modification percentage measuring is, in reality, difficult and misleading. The performance is rarely proportional to the number of modified elements since each source element is usually transformed to target elements in different complexities. 
+
+Correctness of IMT means that the target model resulting of a batch transformation and that of an IMT are the same: $Tgt_{mod} = T_{batch} (Src_{mod}) = T_{inc} (Src_{mod}) = Tgt + T_{batch} (\Delta)$. This is one of the conditions for IMT. When dealing with round-trip engineering, forward and backward transformations, there are two requirements that the transformations need to satisfy. These are consistency and acceptability. The former or right-invertibility basically ensures that all changes on the target model are captured and correctly propagated to the source model: $Src_{mod} = T_{bwd} (T_{fwd}(Src_{mod}))$ or $T_{bwd} \circ T_{fwd} = id$. The latter or left-invertibility is defined as $Tgt_{mod} = T_{fwd}(T_{bwd}(Tgt_{mod}))$ or $T_{fwd} \circ T_{bwd} = id$.
+
+In a chain of model transformation from $Src = Src_0$ to $Src_1$,  $Src_2$, ..,  $Src_N = Tgt$, the incremental forward and backward transformations are specified as: 
+\begin{align*}
+Tgt = Src_N = T_{inc\&fwdN} (..(T_{inc\&fwd1}(Src_{mod})))) = \\ T_{inc\&fwdN} \circ .. \circ T_{inc\&fwd1} (Src_{mod}) \\
+Src = Src_0 = T_{inc\&bwd1} (..(T_{inc\&bwdN}(Tgt_{mod})))) = \\ T_{inc\&bwd1} \circ .. \circ T_{inc\&bwdN} (Tgt_{mod})
+\end{align*}
+The condition for consistency and acceptability of incremental bidirectional transformation chain becomes these of each pairs of transformations: $T_{inc\&fwd1} \& T_{inc\&bwd1}$, $T_{inc\&fwd2} \& T_{inc\&bwd2}$, .., $T_{inc\&fwdN} \& T_{inc\&bwdN}$.
+
+
+Change-driven incremental model transformation is based on detecting change patterns of a set $P$ and executing the pre-defined transformation rules of a rules set $R$ corresponding to those patterns. Each pattern relates one or more structured model elements and reflects an atomic change or complex change of models and context information used for transformations. A pattern can relate source, target and/or traceability model elements (traceability is sometimes not explicit to reason on it). Patterns are detected by querying language such as EMF-InQuery \cite{Ujhelyi2015}, model transformation languages such as QVT, ATL or even general programming languages such as JAVA, Xtend (some non-trivial code)... Let's say $S$, $SSub$, $T$, $TSub$, and $Tr$, $TrSub$ are element sets of source, target and traceability models, and their set of subsets respectively. A detection function $fdt$ of a pattern $p$ recognized by a query $q$ of a queries set $Q$ is defined as:
+\begin{align*}
+fdt: ({SSub \cup TSub \cup TrSub},{Q}) \rightarrow P \\
+fdt(sub1,q) = p
+\end{align*}
+
+Each pattern $p$ corresponds to a transformation rule $r \in R$ propagating the change to the target model. %The mapping function from change patterns to transformation rules is defined as $pMap: P \rightarrow R$. 
+Since changes on the source model are normally not independent from each other (one change is followed by another sequentially dependent change), so are rules. They are normally sequentially dependent, i.e. say one rule must be executed by another or other rules. Independent rules can be concurrently fired. %Rules are categorized into \ts{creating rules} that add elements to the target model; \ts{updating rules} that change values of features of target model elements; and \ts{deleting rules} that remove target model elements. Each type of rule is corresponding to patterns which are detected by recognizing changes on source model. 
+Each rule propagates changes (create, update or delete one or several source model elements) on the source model to the target model. 
+%The updating rule changes the values of attributes and does not change the structure of models. Therefore, we categorize change rules into corresponding groups: creating, updating or deleting rules. %We define a moving rule that is composed of a change that deletes an element from a parent (obviously, each element has only one parent) and a following change that adds the same element to another parent. This rule can add or delete target elements or both.
+
+Two rules $r1$ and $r2$ possibly executed in parallel are formalized as $r1 \doteq r2$. Otherwise, $r1 \prec r2$ means that $r2$ must be activated after $r1$'s execution. The order relation between $r1$ and $r2$ means that $r2$ requires at least one of the model elements including traceability and target model elements created by $r1$ to propagate changes corresponding to the pattern associated with $r2$ (explained in the below equation). Assuming that $usage$ and $ctd$ are functions that extract sets of used, and created model elements, respectively, by a rule.
+\begin{align*}
+r1 \prec r2 \leftrightarrow \exists u \in usage(r2) \mid u \in ctd(r1) \leftrightarrow \\ usage(r2) \cap ctd(r1) \neq \emptyset
+\end{align*}  
+
+%Change propagation executes several unordered transformation rules. Some rules are independent from each other, some not. Dependent rules reflect dependencies between rules that a rule must be executed after another one.
+
+%We will discuss four approaches for propagation scheduling that are (1) scheduling with priority, (2) scheduling with condition, (3) scheduling by static dependency analysis, and (4) scheduling by traceability. Before we go to  the discussion, we firstly introduce a running example that is used for illustrating and verifying the approaches.
+
+
+ 
+
+

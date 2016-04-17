@@ -1,0 +1,57 @@
+\section{Background}
+This sections presents some background concepts in software engineering including traditional software disciplines such as forward engineering and backward engineering.
+
+Forward engineering is the ability to automatically generate or create software artifacts from specification \cite{Sendall}, i.e. generate C++ code from UML \cite{Specification2007} models. Reverse engineering is an inverse process that creates specification by abstracting software artifacts, i.e. create UML models from C++ code. Round-trip engineering (RTE) of is the ability of maintaining the consistency of multiple changing software artifacts: a model \ti{m} in a set of models \ti{M} and code \ti{c} in a set of codes \ti{C} in software development environments/tools. 
+
+\begin{definition}[Batch code generation]
+Batch code generation $gen_{batch}$ is a process of generating executable code \ti{c} from a model specification \ti{m} from scratch: $gen_{batch}(m) = c$. In other words, any existing element in code is overwritten by the batch code generation
+\end{definition}
+
+\begin{definition}[Incremental code generation]
+
+Incremental code generation (ICG) $gen_{inc}$ is a process of taking as input a changed model m and an executable code model to propagate model changes to the code: $gen_{inc}(m, c) = c'$. The propagation means that non-conflicted changes in code are kept intact. ICG is also defined as a process of taking model changes ch and an existing code c: $gen_{inc}(ch, c) = c'$
+\end{definition}
+
+\begin{definition}[Batch reverse engineering]
+Batch reverse engineering $rev_{batch}$ is a process of abstracting from an executable code \ti{c} to a model specification \ti{m}: $rev_{batch}(c) = m$. 
+\end{definition}
+
+
+\begin{definition}[Incremental reverse engineering]
+
+Incremental reverse engineering (IRE) $rev_{inc}$ is a process of taking as input a change executable code c' and a model m to propagate code changes to the model: $rev_{inc}(c', m) = c$. IRE is also defined as a process of taking code changes ch and an existing model m: $rev_{inc}(ch, m) = c'$
+\end{definition}
+
+\begin{definition}[Correctness of incremental transformation]
+Correctness of incremental transformation (IT) means that the target artifact resulting of a batch one and that of an IT are the same in case the source and target artifact are not concurrently modified. This applies to both of incremental generation and reverse engineering: $gen_{inc} (m, c) = gen_{batch} (m)$ and $rev_{inc} (c', m) = rev_{batch} (c')$.
+\end{definition}
+
+Ideally, a RTE automatically propagates changes from one artifact (model or code) to the other artifact. While in many approaches, a RTE consists of two phase: (1) generating code from models and (2) modifying code and propagates modifications from code to models, we consider a more advanced definition of RTE: RTE adds the \tb{synchronization} of existing artifacts that evolved \tb{concurrently} by \tb{incrementally} updating each artifact to reflect changes made to the other artifact and reconcile conflicts between the artifacts. In the context of model-driven engineering, let:
+
+\begin{itemize}
+\item \ti{gen(m)} and \ti{gen(m, c)} be the code generation from a model \ti{m} $\in$ M without and with the existence of code \ti{c} (incremental code generation), respectively, \ti{gen(m)} = \ti{c} and \ti{gen(m, c)} = \ti{c*} with \ti{c*} - updated code and \ti{gen(m, c) = gen(m)} if \ti{c = null}. 
+
+\item \ti{rev(c)} \ti{rev(m, c)} be the reverse engineering of code \ti{c} without and with the existence of the model \ti{m}, respectively, \ti{rev(c)} = \ti{m} \ti{rev(m,c)} = \ti{m*} - an updated model and \ti{rev(m,c)} = \ti{rev(c)} if \ti{m = null}.
+\end{itemize}
+
+The RTE takes as input the previous consistent model and code and their modified versions and outputs the updated artifacts: \ti{rte(m, c, m*, c*) = ($m_{updated}, c_{updated}$)}. A round-trip must satisfy two laws, namely, \ti{right-invertibility} and \ti{left-invertibility} stated as followings:
+
+\noindent
+\tb{Law 1}: Right-invertibility means that not changing the code (model) shall be reflected as not changing the model (code) or \ti{rev(gen(m), m) = m}. The model m used for generating code and the model received by immediately reversing (without any changes to) the generated code must be the same.
+
+\noindent
+\tb{Law 2}: Left-invertibility/Acceptability means that all changes on the code are captured and correctly (in case of bijection) propagated to the model so that the changed code can be generated again by applying the generation to the updated model: \ti{gen(rev(m, c)) = m}.
+
+After the model and code are synchronized, we define the consistency of model and code as followings:
+
+\noindent 
+\tb{Static consistency}: A model and code are considered as in a static consistency state if and only if they satisfy the two laws defined as above.
+
+\noindent
+\tb{Compilability consistency}: Let \ti{c1} be the code generated from the model \ti{m1}, for some reason, \ti{m1} is evolved to \ti{m2} by an MDE developer and a programmer modifies \ti{c1} to \ti{c2} by a set of code modifications. After synchronization, \ti{m3} and \ti{c3} are the updated and static consistent model and code. If \ti{c2} and the code \ti{c2'} generated from \ti{m2} are compilable, \ti{c3} must get compiled.
+
+\noindent
+\tb{Consistency}: A model and code are consistent if they are static consistent and comilability consistent.
+
+In software development life-cycle, models can be manipulated by modeling developers or model-driven engineering developers and in the meantime, code might be modified by traditional programmers. These artifacts are synchronized and reconciled by the defined RTE. Depending on the starting point, the software development can inherit from a legacy code or start directly from models. Several scenarios displaying the cooperation between model-driven developers and traditional developers are proposed in the following section.  
+

@@ -1,0 +1,40 @@
+foreach s: stateClassList {
+	attr = recognizeHierarchyPattern(s);
+	if (attr == null} {
+		return ERROR;
+	}
+	recognizeOnEntryActionPattern();
+	recognizeOnExitActionPattern();
+	recognizeEventProcessingPattern();
+	checkTransition();
+}
+
+Input: 
+	*L1 = list of states extracted from intermediate model I
+	*L2 = list of states extracted from modified code C
+	*ancestorMapI, ancestorMapC
+	*astTransI, astTransC
+Output:
+	*addedStates: list of states to be added
+	*removedStates: list of states to be removed
+	*addedTrans: list of transitions to be removed
+	*removedTrans: list of transitions to be removed
+	*updatedStates
+	*updatedTransitions
+	*movedStates
+
+for e in L2
+	if (!L1.contains(e)) 
+		addedStates.put(e);
+	else
+		if (ancestorMapC(e) == ancestorMapI(e)) 
+			updatedStates.put(e)
+		else 
+			movedStates.put(e)	
+		L1.remove(e)
+	}
+for e in L1 {
+	removedStates.put(e)
+}	
+
+for t in astTransC 

@@ -1,0 +1,80 @@
+\subsection{Round-trip experiments}
+\subsubsection{Model consistency}
+This experiment is targeting to Law 1 and Law 2 of the RTE meaning static consistency. UML models are inputs and used for generating code. Reversing engineering creates new models from the generated code. The new models are compared the original ones. Code generated from the new models is then also compared to that of the original ones. Execution time is also measured during reverse engineering to evaluate performance.
+
+Each input model can contain many packages, classes, attributes, associations, dependencies, operation bodies, enumerations, data types that are transformed into C++ structs, default values. A model generator is developed to automatically randomly generate different UML models containing most of C++ features. The number of packages ranges from 1 to 15. Each package contains 100 classes, 10 enumerations and 10 data types. Class members including operations, operation bodies, attributes and operation parameters, and relationships between classes such as associations, generalizations and dependencies are randomly generated with an appearance probability for each kind of element. The appearance probabilities and information for setting up the model generator are shown in Table \ref{table:info-setup}. The resulting models are shown in Table. It is worth nothing that our generated code contains not only skeletons but also behavior code which is used to test the dependencies analysis. Furthermore, the generated code does not any strange comments to trace associated model elements. It looks like native code written by programmers.  
+
+\begin{table}[]
+\centering
+\caption{appearance probabilities and information for setting up the model generator}
+\label{table:info-setup}
+\begin{tabular}{|l|l|}
+\hline
+Information description                                   & Value            \\ \hline
+Number of packages                                        & 1-\textgreater15 \\ \hline
+Number of classes per package                             & 100              \\ \hline
+Number of attributes per class                            & 30               \\ \hline
+Attribute appearance probability                          & 0.5              \\ \hline
+Probability of being a pointer of an attribute            & 0.3              \\ \hline
+Propability of typing an attribute a primitive type       & 0.4              \\ \hline
+Propability of having a default value for an attribute    & 0.3              \\ \hline
+Probability of being a reference of an attribute          & 0.3              \\ \hline
+Number of operations per class                            & 30               \\ \hline
+Probability of appearance for an operation                & 0.5              \\ \hline
+Number of parameters per operation                        & 4                \\ \hline
+Probability of appearance for a parameter                 & 0.5              \\ \hline
+Probability of having a return parameter for an operation & 0.5              \\ \hline
+Probability of being virtual for an operation             & 0.2              \\ \hline
+Probability of being pure virtual for an operation        & 0.2              \\ \hline
+Maximum number of generalizations                         & 300              \\ \hline
+Number of C++ structs per package                         & 10               \\ \hline
+Probability of appearance for a struct                    & 0.3              \\ \hline
+Number of attributes per struct                           & 6                \\ \hline
+Number of enumerations per package                        & 10               \\ \hline
+Probability of appearance for an enumeration              & 0.3              \\ \hline
+Number of enumerators per enumeration                     & 10               \\ \hline
+Probability of appearance for an enumerator               & 0.5              \\ \hline
+Number of function pointers per package                   & 10               \\ \hline
+Probability of appearance for a function pointer          & 0.3              \\ \hline
+\end{tabular}
+\end{table}
+
+Each class contains 24 operations, several generalization and associated associations. Table \ref{table:law1result} shows the statistics of models where the number of packages (P, PR), classes (C, CR), operations (O, OR), associations (A, AR), and generalizations (G, GR) of the input models and models create by reverse engineering, respectively. (a comparison for reverse rate + performance)
+
+
+\begin{table*}[]
+\centering
+\caption{Input models and reversed models}
+\label{table:law1result}
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+P  & PR & C    & CR & O     & OR & A    & AR & G   & GR & D & DR \\ \hline
+1  &    & 25   &    & 600   &    & 38   &    & 20  &    & 0 &    \\ \hline
+2  &    & 50   &    & 1200  &    & 76   &    & 40  &    & 0 &    \\ \hline
+3  &    & 75   &    & 1800  &    & 114  &    & 60  &    & 0 &    \\ \hline
+4  &    & 100  &    & 2400  &    & 152  &    & 80  &    & 0 &    \\ \hline
+5  &    & 125  &    & 3000  &    & 190  &    & 100 &    & 0 &    \\ \hline
+6  &    & 150  &    & 3600  &    & 228  &    & 120 &    & 0 &    \\ \hline
+7  &    & 175  &    & 4200  &    & 266  &    & 140 &    & 0 &    \\ \hline
+8  &    & 200  &    & 4800  &    & 304  &    & 160 &    & 0 &    \\ \hline
+9  &    & 225  &    & 5400  &    & 342  &    & 180 &    & 0 &    \\ \hline
+10 &    & 250  &    & 6000  &    & 380  &    & 200 &    & 0 &    \\ \hline
+11 &    & 275  &    & 6600  &    & 418  &    & 220 &    & 0 &    \\ \hline
+12 &    & 300  &    & 7200  &    & 456  &    & 240 &    & 0 &    \\ \hline
+13 &    & 325  &    & 7800  &    & 494  &    & 260 &    & 0 &    \\ \hline
+14 &    & 350  &    & 8400  &    & 532  &    & 280 &    & 0 &    \\ \hline
+15 &    & 375  &    & 9000  &    & 570  &    & 300 &    & 0 &    \\ \hline
+16 &    & 400  &    & 9600  &    & 608  &    & 320 &    & 0 &    \\ \hline
+17 &    & 425  &    & 10200 &    & 646  &    & 340 &    & 0 &    \\ \hline
+18 &    & 450  &    & 10800 &    & 684  &    & 360 &    & 0 &    \\ \hline
+19 &    & 475  &    & 11400 &    & 722  &    & 380 &    & 0 &    \\ \hline
+20 &    & 500  &    & 12000 &    & 760  &    & 400 &    & 0 &    \\ \hline
+22 &    & 550  &    & 13200 &    & 836  &    & 440 &    & 0 &    \\ \hline
+24 &    & 600  &    & 14400 &    & 912  &    & 480 &    & 0 &    \\ \hline
+26 &    & 650  &    & 15600 &    & 988  &    & 520 &    & 0 &    \\ \hline
+28 &    & 700  &    & 16800 &    & 1064 &    & 560 &    & 0 &    \\ \hline
+32 &    & 800  &    & 19200 &    & 1216 &    & 640 &    & 0 &    \\ \hline
+36 &    & 900  &    & 21600 &    & 1368 &    & 720 &    & 0 &    \\ \hline
+40 &    & 1000 &    & 24000 &    & 1520 &    & 800 &    & 0 &    \\ \hline
+\end{tabular}
+\end{table*}

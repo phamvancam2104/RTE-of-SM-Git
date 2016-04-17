@@ -1,0 +1,140 @@
+\begin{thebibliography}{10}
+
+\bibitem{_andromda_}
+{AndroMDA} {Model} {Driven} {Architecture} {Framework} – {AndroMDA} -
+  {Homepage}.
+
+\bibitem{_java_thread}
+Java 6 thread states and life cycle {UML} protocol state machine diagram
+  example.
+
+\bibitem{Allegrini2002}
+T.~Allegrini.
+\newblock {Code Generation Starting From Statecharts Specified in UML}.
+\newblock 9, 2002.
+
+\bibitem{angyal_synchronizing_2008}
+L.~Angyal, L.~Lengyel, and H.~Charaf.
+\newblock A {Synchronizing} {Technique} for {Syntactic} {Model}-{Code}
+  {Round}-{Trip} {Engineering}.
+\newblock In {\em Engineering of {Computer} {Based} {Systems}, 2008. {ECBS}
+  2008. 15th {Annual} {IEEE} {International} {Conference} and {Workshop} on
+  the}, pages 463--472, Mar. 2008.
+
+\bibitem{Aßmann200333}
+U.~A{\ss}mann.
+\newblock Automatic roundtrip engineering.
+\newblock {\em Electronic Notes in Theoretical Computer Science}, 82(5):33 --
+  41, 2003.
+\newblock \{SC\} 2003, Workshop on Software Composition (Satellite Event for
+  \{ETAPS\} 2003).
+
+\bibitem{Booch1998}
+G.~Booch, J.~Rumbaugh, and I.~Jacobson.
+\newblock {\em {The Unified Modeling Language User Guide}}, volume~3.
+\newblock 1998.
+
+\bibitem{cea-list_papyrus_????}
+CEA-List.
+\newblock Papyrus.
+
+\bibitem{Chawathe:1996:CDH:235968.233366}
+S.~S. Chawathe, A.~Rajaraman, H.~Garcia-Molina, and J.~Widom.
+\newblock Change detection in hierarchically structured information.
+\newblock {\em SIGMOD Rec.}, 25(2):493--504, June 1996.
+
+\bibitem{Domnguez2012}
+E.~Dom\'{i}nguez, B.~P\'{e}rez, A.~L. Rubio, and M.~A. Zapata.
+\newblock {A systematic review of code generation proposals from state machine
+  specifications}, 2012.
+
+\bibitem{Douglass1999}
+B.~P. Douglass.
+\newblock {\em {Real-time UML : developing efficient objects for embedded
+  systems}}.
+\newblock 1999.
+
+\bibitem{Duby2001}
+C.~Duby.
+\newblock {Class 265 : Implementing UML Statechart Diagrams}.
+\newblock {\em Proceedings of Embedded Systems Conference Fall}, (April), 2001.
+
+\bibitem{foster_combinators_2007}
+J.~N. Foster, M.~B. Greenwald, J.~T. Moore, B.~C. Pierce, and A.~Schmitt.
+\newblock Combinators for {Bidirectional} {Tree} {Transformations}: {A}
+  {Linguistic} {Approach} to the {View}-update {Problem}.
+\newblock {\em ACM Trans. Program. Lang. Syst.}, 29(3), May 2007.
+
+\bibitem{gronback_eclipse_}
+R.~Gronback.
+\newblock Eclipse {Modeling} {Project}.
+
+\bibitem{KNNZ99_2_ag}
+T.~Kle\'{i}n, U.~A. Nickel, J.~Niere, and A.~Z{\"u}ndorf.
+\newblock From uml to java and back again.
+\newblock Technical Report tr-ri-00-216, University of Paderborn, Paderborn,
+  Germany, September 1999.
+
+\bibitem{Mussbacher2014}
+G.~Mussbacher, D.~Amyot, R.~Breu, J.-m. Bruel, B.~H.~C. Cheng, P.~Collet,
+  B.~Combemale, R.~B. France, R.~Heldal, J.~Hill, J.~Kienzle, and
+  M.~Sch{\"{o}}ttle.
+\newblock {The Relevance of Model-Driven Engineering Thirty Years from Now}.
+\newblock {\em ACM/IEEE 17th International Conference on Model Driven
+  Engineering Languages and Systems (MODELS)}, pages 183--200, 2014.
+
+\bibitem{Niaz2004}
+I.~Niaz and J.~Tanaka.
+\newblock {Mapping UML statecharts to java code.}
+\newblock {\em IASTED Conf. on Software Engineering}, pages 111--116, 2004.
+
+\bibitem{Niaz2005}
+I.~a. Niaz and J.~Tanaka.
+\newblock {An object-oriented approach to generate Java code from UML
+  Statecharts}.
+\newblock {\em International Journal of Computer {\&} Information Science},
+  6(2):83--98, 2005.
+
+\bibitem{niaz_mapping_2004}
+I.~A. Niaz, J.~Tanaka, and {others}.
+\newblock Mapping {UML} statecharts to java code.
+\newblock In {\em {IASTED} {Conf}. on {Software} {Engineering}}, pages
+  111--116, 2004.
+
+\bibitem{OMG2015}
+OMG.
+\newblock {Precise Semantics Of UML Composite Structures™}.
+\newblock (October), 2015.
+
+\bibitem{visual}
+V.~Paradigm.
+\newblock "visual paradigm".
+\newblock \url{http://www.visual-paradigm.com/}, 2015.
+\newblock [Online; accessed 01-Sept-2015].
+
+\bibitem{Sendall}
+S.~Sendall and J.~K\"{u}ster.
+\newblock {Taming Model Round-Trip Engineering}.
+
+\bibitem{Shalyto2006}
+A.~Shalyto and N.~Shamgunov.
+\newblock {State machine design pattern}.
+\newblock {\em Proc. of the 4th International}, 2006.
+
+\bibitem{sparxsystems_enterprise_2014}
+SparxSystems.
+\newblock Enterprise {Architect}, Sept. 2014.
+
+\bibitem{Specification2007}
+O.~M. G.~A. Specification and C.~Bars.
+\newblock {OMG Unified Modeling Language ( OMG UML )}.
+\newblock {\em Language}, (November):1 -- 212, 2007.
+
+\bibitem{spinke_object-oriented_2013}
+V.~Spinke.
+\newblock An object-oriented implementation of concurrent and hierarchical
+  state machines.
+\newblock {\em Information and Software Technology}, 55(10):1726--1740, Oct.
+  2013.
+
+\end{thebibliography}

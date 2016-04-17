@@ -1,0 +1,34 @@
+%Some terms to find, define, and keep coherent:
+%- Developer
+%- The developer who uses models is called... (e.g. software architect modeler? doesn't mean anything)
+%- The developer who uses code is called... (e.g. programmer)
+%- Our method is for... called... (e.g. method for model code synchronization, method for architect/programmer collaboration, etc...)
+%- Model is...
+%- Code is...
+%- Gap or difference ?
+%- Background or practice or habits or profiles ? Maybe keep profile and choose one of the other?
+
+
+\section{Introduction}
+\label{sec:introduction}
+Model-driven engineering (MDE) is a development methodology aiming to increase software productivity and quality by allowing different stakeholders to contribute to the system description \cite{Mussbacher2014}. MDE considers models as first-class artifacts and generates code from higher abstraction level models. Although many tools and research prototypes can generate executable code from models such as UML \cite{Specification2007}, generated code could be manually modified by programmers, e.g. skeleton code generated from UML class diagrams. Models and the generated code are therefore out of synchronization. Round-trip engineering is proposed to keep the artifacts synchronized.
+
+Round-trip engineering \cite{Aßmann200333} (RTRIP) supports synchronizing different software artifacts, model and code in this case, and thus enabling actors (software architect and programmers) to freely move between different representations \cite{Sendall}. Tools such as for instance Enterprise Architect \cite{sparxsystems_enterprise_2014}, Visual Paradigm \cite{visual}, AndroMDA \cite{_andromda_} provide RTRIP but most of them are only applicable for system structure models such as class diagrams. The RTRIP of behavior diagrams is simply not supported by these tools since (1) RTRIP is a challenge even for structural code and there is a (2) the gap between behavior models and low level code. There are no obvious bijective mappings from behavioral models and code. Furthermore, user modifications made to the generated code are not trivial to control and reflect to the model.
+
+This study addresses the RTRIP of UML State Machine (SM) and object-oriented programming languages such as C++ and JAVA. SM is widely used in practice for modeling the behavior of complex systems, notably reactive, real-time embedded systems. There are several approaches to generating source code from state machines or state charts such as nested switch/if statements \cite{Booch1998}, state-event-table \cite{Douglass1999, Duby2001} approach and state pattern \cite{Allegrini2002,Shalyto2006,Douglass1999}. Unfortunately, the generated code from these approaches is very difficult for programmers to maintain without an appropriate supporting tool. RTRIP is impossible in these approaches even with very small changes such as changing transition targets or actions made to code. The reason behind this impossibility is that, in mainstream programming languages such as C++, JAVA, there are not equivalents between SM and source code statements.
+
+Synchronization of SM and code allows stakeholders to better collaborate in reactive software system development. In this paper, we propose an approach to supporting this synchronization. The approach consists of a forward and a backward process. The forward process taking as input a SM executes two transformations. The first is UML to UML by utilizing several transformation patterns such as the double-dispatch approach presented in \cite{spinke_object-oriented_2013} and the second is a generation of code from the transformed UML. During the transformations, traceability information is stored. In the backward direction, a verification is executed by code pattern detection to verify the static semantic correctness of the code before the backward process taking as input the modified generated code, the UML classes, the original SM and mapping information together merges changes from code to the SM. From the proposed approach, we implemented a prototype supporting RTRIP of SM and C++ code, and conducted several experiments on different aspects of the RTRIP to verify the proposed approach. Our implementation is the first tool supporting RTRIP of SM and code. 
+%The prototype also improves the collaboration between MDE developers and traditional programmers in developing reactive complex embedded systems.
+
+To sum up, our contribution is as followings:
+\begin{itemize}
+  \item An approach to round-tripping UML SMs and object-oriented code.
+  \item A first tooling prototype supporting RTRIP of UML SMs and C++ code.
+  \item An automatic evaluation of RTRIP correctness of the proposed approach with the prototype including 300 random generated SM models containing 80 states, more than 230 transitions, more than 250 actions and around 180 events for each.
+  \item A complexity analysis of the approach and performance evaluation.
+  \item A comparison and collaboration of two software development practices including working at the model level and at the code level.
+  \item A lightweight evaluation of the semantic conformance of the runtime execution of generated code.
+\end{itemize}
+
+The remaining of this paper is organized as follows: Section \ref{sec:related_works} shows related work. Our proposed approach is detailed in Section \ref{sec:approach}. The implementation of the prototype is described in Section \ref{sec:implementation}. Section \ref{sec:experiments} reports our results of experimenting with the implementation and our approach. The conclusion and future work are presented in Section \ref{sec:conclusion}.
+
